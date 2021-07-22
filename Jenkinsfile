@@ -44,13 +44,30 @@ pipeline {
 
 		
 		stage('DEPLOY') {
-			steps {
-				sh '''
-					pwd
-					sleep 5
-					echo This is the fist stage: DEPLOY
-				'''
-			}	
+		       parallel {
+			       stage ('DEPLOY1') {
+				       steps {
+					       sh 'ls'
+				       }
+			       }
+			       stage ('DEPLOY2') {
+				       steps {
+					       sh 'sleep 5'
+				       }
+			       }
+			       stage ('DEPLOY3') {
+				       steps {
+					       sh '''
+					       pwd
+					       ls -lrt
+					       echo this is third deploy stage
+					       '''
+				       }
+			       }
+		       }
 		}
 	}
 }
+		
+         
+
